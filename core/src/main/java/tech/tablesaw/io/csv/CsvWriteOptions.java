@@ -19,7 +19,7 @@ public class CsvWriteOptions {
     private final char escapechar;
     private final String lineEnd;
 
-    CsvWriteOptions(Builder builder) {
+    private CsvWriteOptions(Builder builder) {
         this.writer = builder.writer;
         this.header = builder.header;
         this.separator = builder.separator;
