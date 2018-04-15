@@ -44,6 +44,11 @@ public class PlotBuilder {
         return this;
     }
 
+    public PlotBuilder title(String title) {
+        this.title = title;
+        return this;
+    }
+
     public PlotBuilder kind(String kind) {
         this.kind = kind;
         return this;
@@ -73,7 +78,7 @@ public class PlotBuilder {
         return xLabel;
     }
 
-    public Plot build() {
+    public Plot build() throws Exception {
         return new Plot(this);
     }
 }

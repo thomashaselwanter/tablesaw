@@ -1,5 +1,8 @@
 package tech.tablesaw.js.plotly;
 
+import com.mitchellbosecke.pebble.PebbleEngine;
+import com.mitchellbosecke.pebble.error.PebbleException;
+import com.mitchellbosecke.pebble.template.PebbleTemplate;
 import tech.tablesaw.api.Table;
 import tech.tablesaw.columns.Column;
 import tech.tablesaw.js.display.Browser;
@@ -7,7 +10,11 @@ import tech.tablesaw.js.display.Browser;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Plot {
 
@@ -19,8 +26,11 @@ public class Plot {
     private final String title;
     private final String yLabel;
     private final String xLabel;
+    private PebbleEngine engine;
 
-    Plot(PlotBuilder builder) {
+    Plot(PlotBuilder builder) throws PebbleException {
+        engine = new PebbleEngine.Builder().build();
+
         this.table = builder.table();
         this.kind = builder.kind();
         this.columns = builder.columns();
@@ -31,10 +41,19 @@ public class Plot {
         this.xLabel = builder.xLabel();
     }
 
-    public void show() throws IOException {
+    public void show() throws IOException, PebbleException {
+        Writer writer = new StringWriter();
+        PebbleTemplate compiledTemplate = engine.getTemplate("../plot/src/main/resources/template.html");
 
-        try (FileWriter writer = new FileWriter(outputFile)) {
-          writer.write(getHtml());
+        Map<String, Object> context = new HashMap<>();
+        context.put("websiteTitle", title);
+
+        compiledTemplate.evaluate(writer, context);
+        String output = writer.toString();
+
+        try (FileWriter fileWriter = new FileWriter(outputFile)) {
+
+          fileWriter.write(output);
         }
         new Browser().browse(outputFile);
     }
@@ -43,11 +62,19 @@ public class Plot {
         StringBuilder builder = new StringBuilder();
         builder.append("<html>" +
                 "<head>" +
-                "<title>Tablesaw Charts</title>" +
-                "</head>" +
+                "<title>Tablesaw Charts</title>\n" +
+                "\t<script src=\"plotly-latest.min.js\"></script>\n" +
+                "\t<script src=\"https://cdn.plot.ly/plotly-latest.min.js\"></script>\n" +
+                "</head>\n" +
                 "<body>" +
-                "<h1>Hello World</h1>" +
-                "<div></div>" +  // put the plot here
+                "<div id=\"tester\" style=\"width:600px;height:250px;\"></div>" +  // put the plot here
+                "<script>\n" +
+                "\tTESTER = document.getElementById('tester');\n" +
+                "\tPlotly.plot( TESTER, [{\n" +
+                "\tx: [1, 2, 3, 4, 5],\n" +
+                "\ty: [1, 2, 4, 8, 16] }], {\n" +
+                "\tmargin: { t: 0 } } );\n" +
+                "</script>" +
                 "</body>" +
                 "</html>");
         return builder.toString();

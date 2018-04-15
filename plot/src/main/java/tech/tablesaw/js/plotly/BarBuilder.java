@@ -35,7 +35,7 @@ public class BarBuilder extends PlotBuilder {
         return barGap;
     }
 
-    public BarPlot build() {
+    public BarPlot build() throws Exception {
         return new BarPlot(this);
     }
 }

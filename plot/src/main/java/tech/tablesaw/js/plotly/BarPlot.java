@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class BarPlot extends Plot {
 
-    BarPlot(PlotBuilder builder) {
+    BarPlot(PlotBuilder builder) throws Exception {
         super(builder);
     }
 
