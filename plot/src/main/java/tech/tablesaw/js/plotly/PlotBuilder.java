@@ -11,10 +11,12 @@ public class PlotBuilder {
     private Table table;
     private Column[] columns;
 
-    private String kind = "scatter";
-    private String title;
+    private String type = "scatter";
+    private String mode = "markers";
+    private String chartTitle;
     private String yLable;
     private String xLabel;
+    private String windowTitle;
 
     public PlotBuilder(String fileName) throws IOException {
         this.table = Table.read().csv(fileName);
@@ -29,8 +31,13 @@ public class PlotBuilder {
         return this;
     }
 
-    public PlotBuilder columns(String title) {
-        this.title = title;
+    public PlotBuilder title(String title) {
+        this.chartTitle = title;
+        return this;
+    }
+
+    public PlotBuilder mode(String mode) {
+        this.mode = mode;
         return this;
     }
 
@@ -44,13 +51,13 @@ public class PlotBuilder {
         return this;
     }
 
-    public PlotBuilder title(String title) {
-        this.title = title;
+    public PlotBuilder windowTitle(String title) {
+        this.windowTitle = title;
         return this;
     }
 
-    public PlotBuilder kind(String kind) {
-        this.kind = kind;
+    public PlotBuilder type(String kind) {
+        this.type = kind;
         return this;
     }
 
@@ -62,12 +69,20 @@ public class PlotBuilder {
         return columns;
     }
 
-    public String kind() {
-        return kind;
+    public String type() {
+        return type;
     }
 
     public String title() {
-        return title;
+        return chartTitle;
+    }
+
+    public String windowTitle() {
+        return windowTitle;
+    }
+
+    public String mode() {
+        return mode;
     }
 
     public String yLable() {

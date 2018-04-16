@@ -22,21 +22,25 @@ public class Plot {
     private final Column[] columns;
     private final File outputFile;
 
-    private final String kind;
-    private final String title;
+    private final String type;
+    private final String chartTitle;
+    private final String windowTitle;
     private final String yLabel;
     private final String xLabel;
     private PebbleEngine engine;
+    private final String mode;
 
     Plot(PlotBuilder builder) throws PebbleException {
         engine = new PebbleEngine.Builder().build();
 
+        this.mode = builder.mode();
         this.table = builder.table();
-        this.kind = builder.kind();
+        this.type = builder.type();
+        this.windowTitle = builder.windowTitle();
         this.columns = builder.columns();
         outputFile = Paths.get("../output.html").toFile();
 
-        this.title = builder.title();
+        this.chartTitle = builder.title();
         this.yLabel = builder.yLable();
         this.xLabel = builder.xLabel();
     }
@@ -46,7 +50,10 @@ public class Plot {
         PebbleTemplate compiledTemplate = engine.getTemplate("../plot/src/main/resources/template.html");
 
         Map<String, Object> context = new HashMap<>();
-        context.put("websiteTitle", title);
+        context.put("windowTitle", windowTitle);
+        context.put("title", chartTitle);
+        context.put("type", type);
+        context.put("mode", mode);
 
         compiledTemplate.evaluate(writer, context);
         String output = writer.toString();
@@ -62,7 +69,7 @@ public class Plot {
         StringBuilder builder = new StringBuilder();
         builder.append("<html>" +
                 "<head>" +
-                "<title>Tablesaw Charts</title>\n" +
+                "<chartTitle>Tablesaw Charts</chartTitle>\n" +
                 "\t<script src=\"plotly-latest.min.js\"></script>\n" +
                 "\t<script src=\"https://cdn.plot.ly/plotly-latest.min.js\"></script>\n" +
                 "</head>\n" +
