@@ -2,19 +2,19 @@ package tech.tablesaw.js.plotly.traces;
 
 import tech.tablesaw.js.plotly.components.TraceBuilder;
 
-public class BarBuilder extends TraceBuilder {
+public class BoxBuilder extends TraceBuilder {
 
-    private String type = "bar";
+    String type = "box";
     Object[] x;
     double[] y;
 
-    BarBuilder(Object[] x, double[] y) {
+    BoxBuilder(Object[] x, double[] y) {
         this.x = x;
         this.y = y;
     }
 
-    public BarPlot build() throws Exception {
-        return new BarPlot(this);
+    public BoxPlot build() {
+        return new BoxPlot(this);
     }
 
     @Override

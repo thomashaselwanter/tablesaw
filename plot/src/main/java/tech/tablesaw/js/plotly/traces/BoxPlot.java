@@ -9,19 +9,20 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
 
-public class BarPlot extends AbstractTrace {
+public class BoxPlot extends AbstractTrace {
 
     private Object[] x;
     private double[] y;
 
-    BarPlot(BarBuilder builder) {
+
+    BoxPlot(BoxBuilder builder) {
         super(builder);
         this.x = builder.x;
         this.y = builder.y;
     }
 
-    public static BarBuilder builder(Object[] x, double[] y) throws IOException {
-        return new BarBuilder(x, y);
+    public static BoxBuilder builder(Object[] x, double[] y) throws IOException {
+        return new BoxBuilder(x, y);
     }
 
     @Override
