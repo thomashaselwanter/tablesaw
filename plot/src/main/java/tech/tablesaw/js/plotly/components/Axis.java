@@ -1,6 +1,5 @@
 package tech.tablesaw.js.plotly.components;
 
-import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.error.PebbleException;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
 
@@ -12,16 +11,25 @@ import java.util.Map;
 
 import static tech.tablesaw.js.plotly.components.Axis.AutoRange.TRUE;
 
-public class Axis {
-
-    private final PebbleEngine engine = new PebbleEngine.Builder().build();
+public class Axis extends Component {
 
     public enum Type {
-        LINEAR,
-        LOG,
-        DATE,
-        CATEGORY,
-        DEFAULT;
+        LINEAR("linear"),
+        LOG("log"),
+        DATE("date"),
+        CATEGORY("category"),
+        DEFAULT("-");
+
+        private String value;
+
+        Type(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 
     public enum AutoRange {
@@ -41,6 +49,7 @@ public class Axis {
     private boolean visible = true;
     private String color = "#444";
     private Font font;
+    private Font titleFont;
     private Type type = Type.DEFAULT;
     private AutoRange autoRange = TRUE;
     private double[] range;
@@ -52,6 +61,9 @@ public class Axis {
 
     Axis(AxisBuilder builder) {
         this.title = builder.title;
+        this.titleFont = builder.titleFont;
+        this.type = builder.type;
+        this.visible = builder.visible;
     }
 
     public String asJavascript() {
@@ -68,10 +80,12 @@ public class Axis {
     }
 
 
-    protected Map<String, Object> getContext() {
+    private Map<String, Object> getContext() {
         Map<String, Object> context = new HashMap<>();
         context.put("title", title);
+        context.put("titleFont", titleFont);
+        context.put("visible", visible);
+        context.put("type", type);
         return context;
     }
-
 }

@@ -5,7 +5,7 @@ public class LayoutBuilder {
     /**
      * The global font
      */
-    Font font = new Font();
+    Font font = Font.builder().build();
 
     /*
      * The plot title
@@ -95,6 +95,11 @@ public class LayoutBuilder {
 
     public LayoutBuilder title(String title) {
         this.title = title;
+        return this;
+    }
+
+    public LayoutBuilder titleFont(Font titleFont) {
+        this.titleFont = titleFont;
         return this;
     }
 

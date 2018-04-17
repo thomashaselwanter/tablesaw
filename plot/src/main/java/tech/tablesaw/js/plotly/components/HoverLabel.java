@@ -1,6 +1,19 @@
 package tech.tablesaw.js.plotly.components;
 
-public class HoverLabel {
+import com.mitchellbosecke.pebble.error.PebbleException;
+import com.mitchellbosecke.pebble.template.PebbleTemplate;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+
+public class HoverLabel extends Component {
+
+    public static HoverLabelBuilder builder() {
+        return new HoverLabelBuilder();
+    }
 
     /**
      * Sets the background color of all hover labels on graph
@@ -24,4 +37,33 @@ public class HoverLabel {
      * but if it is longer, will truncate to `namelength - 3` characters and add an ellipsis.
      */
     private int nameLength = 15;
+
+    HoverLabel(HoverLabelBuilder builder) {
+        this.bgColor = builder.bgColor;
+        this.borderColor = builder.borderColor;
+        this.font = builder.font;
+        this.nameLength = builder.nameLength;
+    }
+
+    String asJavascript() {
+        Writer writer = new StringWriter();
+        PebbleTemplate compiledTemplate;
+
+        try {
+            compiledTemplate = engine.getTemplate("../plot/src/main/resources/hoverLabel_template.html");
+            compiledTemplate.evaluate(writer, getContext());
+        } catch (PebbleException | IOException e) {
+            e.printStackTrace();
+        }
+        return writer.toString();
+    }
+
+    private Map<String, Object> getContext() {
+        Map<String, Object> context = new HashMap<>();
+        context.put("bgColor", bgColor);
+        context.put("borderColor", borderColor);
+        context.put("nameLength", nameLength);
+        context.put("font", font);
+        return context;
+    }
 }

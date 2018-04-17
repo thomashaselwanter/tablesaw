@@ -2,17 +2,15 @@ package tech.tablesaw.js.plotly.components;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class AxisTest {
+public class HoverLabelTest {
 
     @Test
     public void asJavascript() {
-        Axis x = Axis.builder()
-                .title("x Axis 1")
-                .visible(true)
-                .type(Axis.Type.DEFAULT)
-                .titleFont(Font.builder()
+        HoverLabel x = HoverLabel.builder()
+                .nameLength(10)
+                .bgColor("blue")
+                .borderColor("green")
+                .font(Font.builder()
                         .family(Font.Family.ARIAL)
                         .size(8)
                         .color("red")

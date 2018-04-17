@@ -42,7 +42,7 @@ public class Layout {
     /**
      * The global font
      */
-    private Font font = new Font();
+    private Font font = Font.builder().build();
 
     /*
      * The plot title
@@ -132,6 +132,7 @@ public class Layout {
         this.thousandsSeparator = builder.thousandsSeparator;
         this.dragMode = builder.dragMode;
         this.font = builder.font;
+        this.titleFont = builder.titleFont;
         this.hoverDistance = builder.hoverDistance;
         this.hoverMode = builder.hoverMode;
         this.margin = builder.margin;

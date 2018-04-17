@@ -1,6 +1,15 @@
 package tech.tablesaw.js.plotly.components;
 
-public class Font {
+import com.mitchellbosecke.pebble.error.PebbleException;
+import com.mitchellbosecke.pebble.template.PebbleTemplate;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Font extends Component {
 
     /**
      * HTML font family - the typeface that will be applied by the web browser.
@@ -12,10 +21,25 @@ public class Font {
      * "Old Standard TT", "Open Sans", "Overpass", "PT Sans Narrow", "Raleway", "Times New Roman".
      */
     public enum Family {
-        OPEN_SANS,
-        VERDANA,
-        ARIAL,
-        SANS_SERIF;
+        OPEN_SANS("Open Sans"),
+        VERDANA("verdana"),
+        ARIAL("arial"),
+        SANS_SERIF("sans-serif");
+
+        private final String value;
+
+        Family(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
+    public static FontBuilder builder() {
+        return new FontBuilder();
     }
 
     private Family fontFamily = Family.OPEN_SANS;
@@ -24,5 +48,31 @@ public class Font {
 
     private String color = "#444";
 
+    Font(FontBuilder builder) {
+        this.color = builder.color;
+        this.fontFamily = builder.fontFamily;
+        this.size = builder.size;
+    }
 
+    public String asJavascript() {
+        Writer writer = new StringWriter();
+        PebbleTemplate compiledTemplate;
+
+        try {
+            compiledTemplate = engine.getTemplate("../plot/src/main/resources/font_template.html");
+            compiledTemplate.evaluate(writer, getContext());
+        } catch (PebbleException | IOException e) {
+            e.printStackTrace();
+        }
+        return writer.toString();
+    }
+
+
+    private Map<String, Object> getContext() {
+        Map<String, Object> context = new HashMap<>();
+        context.put("size", size);
+        context.put("family", fontFamily);
+        context.put("color", color);
+        return context;
+    }
 }

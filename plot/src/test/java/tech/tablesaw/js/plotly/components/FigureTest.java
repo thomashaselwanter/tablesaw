@@ -32,10 +32,17 @@ public class FigureTest {
 
         Layout layout = Layout.builder()
                 .title("A test title")
-                .xAxis(
-                        Axis.builder()
-                                .title("the x axis")
+                .xAxis(Axis.builder()
+                        .title("x Axis 1")
+                        .visible(true)
+                        .type(Axis.Type.DEFAULT)
+                        .titleFont(Font.builder()
+                                .family(Font.Family.ARIAL)
+                                .size(8)
+                                .color("red")
                                 .build())
+                        .build()
+                )
                 .build();
 
         Figure figure = new Figure(layout, trace);
@@ -50,9 +57,16 @@ public class FigureTest {
 
         Layout layout = Layout.builder()
                 .title("A test title")
-                .xAxis(
-                        Axis.builder()
-                                .title("the x axis").build()
+                .xAxis(Axis.builder()
+                                .title("x Axis 1")
+                                .visible(true)
+                                .type(Axis.Type.DEFAULT)
+                                .titleFont(Font.builder()
+                                        .family(Font.Family.ARIAL)
+                                        .size(8)
+                                        .color("red")
+                                        .build())
+                                .build()
                 ).build();
 
         Figure figure = new Figure(layout, trace);
