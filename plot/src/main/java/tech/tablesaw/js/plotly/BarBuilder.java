@@ -1,28 +1,16 @@
 package tech.tablesaw.js.plotly;
 
-import java.io.File;
-import java.io.IOException;
-
-public class BarBuilder extends PlotBuilder {
+public class BarBuilder extends ScattterBuilder {
 
     private String barMode;
     private String barGap;
 
-    public BarBuilder(String fileName) throws IOException {
-        super(fileName);
-    }
-
-    public BarBuilder(File file) throws IOException {
-        super(file);
-    }
-
-
-    public PlotBuilder barMode(String barMode) {
+    public ScattterBuilder barMode(String barMode) {
         this.barMode = barMode;
         return this;
     }
 
-    public PlotBuilder barGap(String barGap) {
+    public ScattterBuilder barGap(String barGap) {
         this.barGap = barGap;
         return this;
     }

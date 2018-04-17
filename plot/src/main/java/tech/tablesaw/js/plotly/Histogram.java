@@ -1,8 +1,8 @@
 package tech.tablesaw.js.plotly;
 
-public class Histogram extends Plot {
+public class Histogram extends Scatter {
 
-    Histogram(PlotBuilder builder) throws Exception {
+    Histogram(ScattterBuilder builder) throws Exception {
         super(builder);
     }
 }

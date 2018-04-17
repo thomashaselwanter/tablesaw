@@ -1,14 +1,17 @@
 package tech.tablesaw.js.plotly;
 
+import tech.tablesaw.api.Table;
+
 import java.io.IOException;
 
-public class BarPlot extends Plot {
+public class BarPlot extends Scatter {
 
-    BarPlot(PlotBuilder builder) throws Exception {
+    BarPlot(ScattterBuilder builder) throws Exception {
         super(builder);
     }
 
     public static BarBuilder builder(String fileName) throws IOException {
-        return new BarBuilder(fileName);
+        Table table = Table.read().csv(fileName);
+        return new BarBuilder();
     }
 }

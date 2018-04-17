@@ -2,14 +2,12 @@ package tech.tablesaw.js.plotly;
 
 import org.junit.Test;
 
-public class PlotTest {
+public class ScatterTest {
 
     @Test
     public void show() throws Exception {
 
-        Plot plot = new PlotBuilder("../data/bush.csv")
-                .title("Chart Title")
-                .windowTitle("Window Title")
+        Scatter plot = new ScattterBuilder()
                 .type("scatter")
                 .mode("markers")
                 .build();
