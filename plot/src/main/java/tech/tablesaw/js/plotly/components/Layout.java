@@ -140,6 +140,7 @@ public class Layout {
         this.width = builder.width;
         this.xAxis = builder.xAxis;
         this.yAxis = builder.yAxis;
+        this.showLegend = builder.showLegend;
     }
 
     public String asJavascript() {
@@ -165,8 +166,11 @@ public class Layout {
         context.put("autosize", autoSize);
         context.put("hoverdistance", hoverDistance);
         context.put("hovermode", hoverMode);
-        context.put("margin", margin);
+        if (margin != null) {
+            context.put("margin", margin.asJavascript());
+        }
         context.put("dragmode", dragMode);
+        context.put("showLegend", showLegend);
 
         if (xAxis != null) {
             context.put("xAxis", xAxis.asJavascript());

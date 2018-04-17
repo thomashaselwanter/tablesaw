@@ -42,4 +42,9 @@ public abstract class TraceBuilder {
 
     protected abstract String getType();
 
+    protected TraceBuilder name(String name) {
+        this.name = name;
+        return this;
+    }
+
 }

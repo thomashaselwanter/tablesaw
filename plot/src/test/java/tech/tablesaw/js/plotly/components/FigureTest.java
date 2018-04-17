@@ -43,6 +43,12 @@ public class FigureTest {
                                 .build())
                         .build()
                 )
+                .margin(Margin.builder()
+                        .top(200)
+                        .left(200)
+                        .build())
+                .showLegend(true)
+
                 .build();
 
         Figure figure = new Figure(layout, trace);
@@ -53,6 +59,7 @@ public class FigureTest {
     @Test
     public void show2()  {
         Trace trace = Scatter.builder(x, y)
+                .name("series one")
                 .build();
 
         Layout layout = Layout.builder()
@@ -66,8 +73,13 @@ public class FigureTest {
                                         .size(8)
                                         .color("red")
                                         .build())
-                                .build()
-                ).build();
+                                .build())
+                .margin(Margin.builder()
+                        .top(200)
+                        .left(200)
+                        .build())
+                .showLegend(true)
+                .build();
 
         Figure figure = new Figure(layout, trace);
 

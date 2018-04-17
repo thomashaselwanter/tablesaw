@@ -27,6 +27,10 @@ public class ScatterBuilder extends TraceBuilder {
         return this;
     }
 
+    public ScatterBuilder name(String name) {
+        return (ScatterBuilder) super.name(name);
+    }
+
     public Scatter build() {
         return new Scatter(this);
     }

@@ -84,7 +84,6 @@ public class LayoutBuilder {
      */
     int hoverDistance = 20; // greater than or equal to -1
 
-
     Axis xAxis;
 
     Axis yAxis;
@@ -100,6 +99,16 @@ public class LayoutBuilder {
 
     public LayoutBuilder titleFont(Font titleFont) {
         this.titleFont = titleFont;
+        return this;
+    }
+
+    public LayoutBuilder margin(Margin margin) {
+        this.margin = margin;
+        return this;
+    }
+
+    public LayoutBuilder showLegend(boolean showLegend) {
+        this.showLegend = showLegend;
         return this;
     }
 

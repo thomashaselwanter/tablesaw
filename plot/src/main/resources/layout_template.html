@@ -2,11 +2,15 @@ var layout = {
     title: '{{title}}',
     height: {{height}},
     width: {{width}},
+    showlegend: {{showLegend}},
 
+    {% if margin is not null %}
+    margin: {{margin | raw}},
+    {% endif %}
     {% if xAxis is not null %}
-        xaxis: {{xAxis | raw}},
+    xaxis: {{xAxis | raw}},
     {% endif %}
     {% if yAxis is not null %}
-        yaxis: {{yAxis | raw}},
+    yaxis: {{yAxis | raw}},
     {% endif %}
 }
