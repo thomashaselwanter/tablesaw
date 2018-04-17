@@ -1,8 +1,12 @@
 var {{variableName}} =
     [{
-        x: {{x}},
-        y: {{y}},
+        x: {{x | raw}},
+        {% if y is not null %}
+        y: {{y | raw}},
+        {% endif %}
+        {% if mode is not null %}
         mode: '{{mode}}',
+        {% endif %}
         type: '{{type}}',
         name: '{{name}}',
  }]

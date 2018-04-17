@@ -1,6 +1,5 @@
 package tech.tablesaw.js.plotly.traces;
 
-import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.error.PebbleException;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
 import tech.tablesaw.js.plotly.components.AbstractTrace;
@@ -8,12 +7,9 @@ import tech.tablesaw.js.plotly.components.AbstractTrace;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Arrays;
 import java.util.Map;
 
 public class Scatter extends AbstractTrace {
-
-    private final PebbleEngine engine = new PebbleEngine.Builder().build();
 
     private final double[] y;
     private final double[] x;
@@ -52,9 +48,5 @@ public class Scatter extends AbstractTrace {
             e.printStackTrace();
         }
         return writer.toString();
-    }
-
-    private String dataAsString(double[] data) {
-        return Arrays.toString(data);
     }
 }

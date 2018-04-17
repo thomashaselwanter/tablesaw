@@ -4,9 +4,16 @@ import tech.tablesaw.js.plotly.components.TraceBuilder;
 
 public class BarBuilder extends TraceBuilder {
 
-    private String type = "bar";
-    private String barMode;
-    private String barGap;
+    String type = "bar";
+    String barMode;
+    String barGap;
+    Object[] x;
+    double[] y;
+
+    BarBuilder(Object[] x, double[] y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public BarBuilder barMode(String barMode) {
         this.barMode = barMode;

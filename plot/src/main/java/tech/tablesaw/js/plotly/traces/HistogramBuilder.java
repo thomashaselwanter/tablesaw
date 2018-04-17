@@ -1,11 +1,19 @@
 package tech.tablesaw.js.plotly.traces;
 
-public class HistogramBuilder extends ScatterBuilder {
+import tech.tablesaw.js.plotly.components.TraceBuilder;
 
-    private int bins;
-    private String barMode;
-    private String histFunction;
-    private String histNorm;
+public class HistogramBuilder extends TraceBuilder {
+
+    String type = "histogram";
+    int bins;
+    String barMode;
+    String histFunction;
+    String histNorm;
+    double[] x;
+
+    public HistogramBuilder(double[] values) {
+        this.x = values;
+    }
 
     public HistogramBuilder setBins(int bins) {
         this.bins = bins;
@@ -17,29 +25,22 @@ public class HistogramBuilder extends ScatterBuilder {
         return this;
     }
 
-    public ScatterBuilder histFunction(String histFunction) {
+    public HistogramBuilder histFunction(String histFunction) {
         this.histFunction = histFunction;
         return this;
     }
 
-    public ScatterBuilder histNorm(String histNorm) {
+    public HistogramBuilder histNorm(String histNorm) {
         this.histNorm = histNorm;
         return this;
     }
 
-    String histFunction() {
-        return histFunction;
+    public Histogram build() {
+        return new Histogram(this);
     }
 
-    String histNorm() {
-        return histNorm;
-    }
-
-    int bins() {
-        return bins;
-    }
-
-    String barMode() {
-        return barMode;
+    @Override
+    protected String getType() {
+        return type;
     }
 }

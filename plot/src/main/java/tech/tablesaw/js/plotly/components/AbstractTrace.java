@@ -7,12 +7,13 @@ import com.mitchellbosecke.pebble.template.PebbleTemplate;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractTrace implements Trace {
 
-    private final PebbleEngine engine = new PebbleEngine.Builder().build();
+    protected final PebbleEngine engine = new PebbleEngine.Builder().build();
 
     public enum Visibility {
         TRUE,
@@ -96,5 +97,24 @@ public abstract class AbstractTrace implements Trace {
         context.put("hoverLable", hoverLabel);
         context.put("opacity", opacity);
         return context;
+    }
+
+    protected String dataAsString(double[] data) {
+        return Arrays.toString(data);
+    }
+
+    protected String dataAsString(Object[] data) {
+        StringBuilder builder = new StringBuilder("[");
+        for (int i = 0; i < data.length; i++) {
+            Object o = data[i];
+            builder.append("'");
+            builder.append(String.valueOf(o));
+            builder.append("'");
+            if (i < data.length - 1) {
+                builder.append(",");
+            }
+        }
+        builder.append("]");
+        return builder.toString();
     }
 }

@@ -1,20 +1,21 @@
-package tech.tablesaw.js.plotly;
+package tech.tablesaw.js.plotly.traces;
 
 import org.junit.Test;
+import tech.tablesaw.js.plotly.Plot;
 import tech.tablesaw.js.plotly.components.Figure;
-import tech.tablesaw.js.plotly.traces.Scatter;
 
 import java.io.File;
 import java.nio.file.Paths;
 
-public class ScatterTest {
+import static org.junit.Assert.*;
 
-    private final double[] x = {1, 2, 3, 4};
-    private final double[] y = {1, 4, 9, 16};
+public class HistogramTest {
+
+    private final double[] y = {1, 4, 9, 16, 11, 4, -1, 20, 4, 7, 9, 12, 8, 6};
 
     @Test
-    public void testAsJavascript() {
-        Scatter trace = Scatter.builder(x, y)
+    public void testAsJavascript() throws Exception {
+        Histogram trace = Histogram.builder(y)
                 .build();
 
         System.out.println(trace.asJavascript(1));
@@ -23,13 +24,12 @@ public class ScatterTest {
     @Test
     public void show() throws Exception {
 
-        Scatter trace = Scatter.builder(x, y)
-                .mode("markers")
-                .build();
+        Histogram trace = Histogram.builder(y).build();
 
         Figure figure = new Figure(trace);
         File outputFile = Paths.get("../testoutput/output.html").toFile();
 
         Plot.plot(figure, "target", outputFile);
     }
+
 }
