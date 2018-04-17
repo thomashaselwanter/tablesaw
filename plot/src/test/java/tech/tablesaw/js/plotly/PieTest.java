@@ -16,7 +16,6 @@ public class PieTest {
     public void testAsJavascript() throws Exception {
         PiePlot trace = PiePlot.builder(x, y)
                 .build();
-
         System.out.println(trace.asJavascript(1));
     }
 
@@ -24,10 +23,8 @@ public class PieTest {
     public void show() throws Exception {
 
         PiePlot trace = PiePlot.builder(x, y).build();
-
         Figure figure = new Figure(trace);
         File outputFile = Paths.get("../testoutput/output.html").toFile();
-
         Plot.plot(figure, "target", outputFile);
     }
 }

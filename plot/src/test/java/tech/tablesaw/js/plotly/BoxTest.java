@@ -16,7 +16,6 @@ public class BoxTest {
     public void testAsJavascript() throws Exception {
         BoxPlot trace = BoxPlot.builder(x, y)
                 .build();
-
         System.out.println(trace.asJavascript(1));
     }
 

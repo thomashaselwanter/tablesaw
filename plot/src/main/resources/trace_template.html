@@ -7,6 +7,9 @@ var {{variableName}} =
         {% if mode is not null %}
         mode: '{{mode}}',
         {% endif %}
+        {% if orientation is not null %}
+        orientation: '{{orientation}}',
+        {% endif %}
         type: '{{type}}',
         name: '{{name}}',
  }]

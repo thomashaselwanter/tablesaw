@@ -11,11 +11,29 @@ import java.util.Map;
 
 public class BarPlot extends AbstractTrace {
 
+    public enum Orientation {
+        VERTICAL("v"),
+        HORIZONTAL("h");
+
+        String value;
+
+        Orientation(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
     private Object[] x;
     private double[] y;
+    private Orientation orientation;
 
     BarPlot(BarBuilder builder) {
         super(builder);
+        this.orientation = builder.orientation;
         this.x = builder.x;
         this.y = builder.y;
     }
@@ -42,8 +60,14 @@ public class BarPlot extends AbstractTrace {
 
         Map<String, Object> context = super.getContext();
         context.put("variableName", "trace" + i);
-        context.put("y", dataAsString(y));
-        context.put("x", dataAsString(x));
+        if (orientation == Orientation.HORIZONTAL) {
+            context.put("x", dataAsString(y));
+            context.put("y", dataAsString(x));
+        } else {
+            context.put("y", dataAsString(y));
+            context.put("x", dataAsString(x));
+        }
+        context.put("orientation", orientation.value);
         return context;
     }
 }
