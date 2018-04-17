@@ -9,11 +9,12 @@ import java.nio.file.Paths;
 
 public class ScatterTest {
 
+    double[] x = {1, 2, 3, 4};
+    double[] y = {1, 4, 9, 16};
+
     @Test
     public void testAsJavascript() {
-        Scatter trace = Scatter.builder()
-                .xLabel("foo")
-                .yLabel("bar")
+        Scatter trace = Scatter.builder(x, y)
                 .build();
 
         System.out.println(trace.asJavascript(1));
@@ -22,10 +23,8 @@ public class ScatterTest {
     @Test
     public void show() throws Exception {
 
-        Scatter trace = Scatter.builder()
+        Scatter trace = Scatter.builder(x, y)
                 .mode("markers")
-                .xLabel("foo")
-                .yLabel("bar")
                 .build();
 
         Figure figure = new Figure(trace);

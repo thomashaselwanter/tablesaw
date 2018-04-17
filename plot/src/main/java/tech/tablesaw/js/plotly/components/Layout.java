@@ -121,6 +121,9 @@ public class Layout {
      */
     private int hoverDistance = 20; // greater than or equal to -1
 
+    private Axis xAxis;
+
+    private Axis yAxis;
 
     public Layout(LayoutBuilder builder) {
         this.title = builder.title;
@@ -134,6 +137,8 @@ public class Layout {
         this.margin = builder.margin;
         this.height = builder.height;
         this.width = builder.width;
+        this.xAxis = builder.xAxis;
+        this.yAxis = builder.yAxis;
     }
 
     public String asJavascript() {
@@ -161,6 +166,13 @@ public class Layout {
         context.put("hovermode", hoverMode);
         context.put("margin", margin);
         context.put("dragmode", dragMode);
+
+        if (xAxis != null) {
+            context.put("xAxis", xAxis.asJavascript());
+        }
+        if (yAxis != null) {
+            context.put("yAxis", yAxis.asJavascript());
+        }
         return context;
     }
 

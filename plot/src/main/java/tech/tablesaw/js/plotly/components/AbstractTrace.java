@@ -24,6 +24,10 @@ public abstract class AbstractTrace implements Trace {
 
     private final Visibility visible;
 
+    private final double[] x;
+
+    private final double[] y;
+
     /**
      * Determines whether or not an item corresponding to this trace is shown in the legend.
      */
@@ -63,6 +67,8 @@ public abstract class AbstractTrace implements Trace {
         this.ids = builder.ids;
         this.hoverLabel = builder.hoverLabel;
         this.opacity = builder.opacity;
+        this.x = builder.x;
+        this.y = builder.y;
     }
 
     @Override

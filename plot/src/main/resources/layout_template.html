@@ -2,5 +2,11 @@ var layout = {
     title: '{{title}}',
     height: {{height}},
     width: {{width}},
-    margin: { t: 0 }
+
+    {% if xAxis is not null %}
+        xaxis: {{xAxis | raw}},
+    {% endif %}
+    {% if yAxis is not null %}
+        yaxis: {{yAxis | raw}},
+    {% endif %}
 }

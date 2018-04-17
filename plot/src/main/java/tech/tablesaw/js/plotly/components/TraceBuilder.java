@@ -34,7 +34,12 @@ public abstract class TraceBuilder {
 
     HoverLabel hoverLabel;
 
+    double[] x;
+
+    double[] y;
+
     public TraceBuilder() {}
 
     protected abstract String getType();
+
 }

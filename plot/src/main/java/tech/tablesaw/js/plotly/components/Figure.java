@@ -12,6 +12,7 @@ import java.util.Map;
 
 /**
  * Plotly's graph description places attributes into two categories:
+ * traces (objects that describe a single series of data in a graph like Scatter or Heatmap)
  * and layout attributes that apply to the rest of the chart, like the title, xaxis, or annotations).
  *
  * Figure combines the two parts, associating one or more traces with a layout. If the layout is null a default layuut
@@ -61,7 +62,7 @@ public class Figure {
         StringBuilder builder = new StringBuilder();
 
         if (layout != null) {
-            builder.append(layout.toString());
+            builder.append(layout.asJavascript());
         }
         builder.append('\n');
         for (int i = 0; i < data.length; i++) {
@@ -77,7 +78,7 @@ public class Figure {
 
     private String plotFunction(String divName) {
         StringBuilder builder = new StringBuilder();
-        if (layout == null) {
+
 
             builder.append("Plotly.newPlot(")
                     .append(divName)
@@ -88,9 +89,13 @@ public class Figure {
                 if (i < data.length - 1) {
                     builder.append(", ");
                 }
+                if (layout != null) {
+                    builder.append(", ");
+                    builder.append("layout");
+                }
             }
             builder.append(");");
-        }
+
         return builder.toString();
     }
 

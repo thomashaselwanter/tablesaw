@@ -7,23 +7,18 @@ public class ScatterBuilder extends TraceBuilder {
 
     String type = "scatter";
     String mode = "markers";
-    String yLabel;
-    String xLabel;
+    double[] x;
+    double[] y;
 
     ScatterBuilder() {}
 
+    ScatterBuilder(double[] x, double[] y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public ScatterBuilder mode(String mode) {
         this.mode = mode;
-        return this;
-    }
-
-    public ScatterBuilder yLabel(String yLabel) {
-        this.yLabel = yLabel;
-        return this;
-    }
-
-    public ScatterBuilder xLabel(String xLabel) {
-        this.xLabel = xLabel;
         return this;
     }
 

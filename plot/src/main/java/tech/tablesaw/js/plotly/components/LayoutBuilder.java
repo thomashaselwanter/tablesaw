@@ -85,6 +85,10 @@ public class LayoutBuilder {
     int hoverDistance = 20; // greater than or equal to -1
 
 
+    Axis xAxis;
+
+    Axis yAxis;
+
     public Layout build() {
         return new Layout(this);
     }
@@ -100,6 +104,16 @@ public class LayoutBuilder {
     }
     public LayoutBuilder width(int width) {
         this.width = width;
+        return this;
+    }
+
+    public LayoutBuilder xAxis(Axis axis) {
+        this.xAxis = axis;
+        return this;
+    }
+
+    public LayoutBuilder yAxis(Axis axis) {
+        this.yAxis = axis;
         return this;
     }
 

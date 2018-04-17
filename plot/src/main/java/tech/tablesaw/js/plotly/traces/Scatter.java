@@ -8,34 +8,35 @@ import tech.tablesaw.js.plotly.components.AbstractTrace;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.Map;
 
 public class Scatter extends AbstractTrace {
 
     private final PebbleEngine engine = new PebbleEngine.Builder().build();
 
-    private final String yLabel;
-    private final String xLabel;
+    private final double[] y;
+    private final double[] x;
     private final String mode;
 
-    public static ScatterBuilder builder() {
-        return new ScatterBuilder();
+    public static ScatterBuilder builder(double[] x, double[] y) {
+        return new ScatterBuilder(x, y);
     }
 
     Scatter(ScatterBuilder builder) {
         super(builder);
         this.mode = builder.mode;
-        this.yLabel = builder.yLabel;
-        this.xLabel = builder.xLabel;
+        this.y = builder.y;
+        this.x = builder.x;
     }
 
-    public Map<String, Object> getContext(int i) {
+    private Map<String, Object> getContext(int i) {
 
         Map<String, Object> context = super.getContext();
         context.put("variableName", "trace" + i);
         context.put("mode", mode);
-        context.put("yLabel", yLabel);
-        context.put("xLabel", xLabel);
+        context.put("y", dataAsString(y));
+        context.put("x", dataAsString(x));
         return context;
     }
 
@@ -51,5 +52,9 @@ public class Scatter extends AbstractTrace {
             e.printStackTrace();
         }
         return writer.toString();
+    }
+
+    private String dataAsString(double[] data) {
+        return Arrays.toString(data);
     }
 }
