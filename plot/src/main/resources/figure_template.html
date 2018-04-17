@@ -1,17 +1,19 @@
 <html>
 <head>
     <title>{{windowTitle }}</title>
+<!--
     <script src="src/main/resources/plotly-latest.min.js"></script>
+-->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-    <div id="tester" style="width:600px;height:250px;"></div>
+    <div id='{{divName}}' style="width:600px;height:450px;"></div>
     <script>
-        {{traces}}
-        {{layout}}
 
-        TESTER = document.getElementById('tester');
-        Plotly.plot( TESTER, trace, layout );
+        var {{targetName}} = document.getElementById('{{divName}}');
+        {{figure | raw }}
+        {{plotFunction}}
+
     </script>
 </body>
 </html>

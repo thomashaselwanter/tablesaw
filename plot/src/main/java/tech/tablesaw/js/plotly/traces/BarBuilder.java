@@ -1,16 +1,19 @@
-package tech.tablesaw.js.plotly;
+package tech.tablesaw.js.plotly.traces;
 
-public class BarBuilder extends ScattterBuilder {
+import tech.tablesaw.js.plotly.components.TraceBuilder;
 
+public class BarBuilder extends TraceBuilder {
+
+    private String type = "bar";
     private String barMode;
     private String barGap;
 
-    public ScattterBuilder barMode(String barMode) {
+    public BarBuilder barMode(String barMode) {
         this.barMode = barMode;
         return this;
     }
 
-    public ScattterBuilder barGap(String barGap) {
+    public BarBuilder barGap(String barGap) {
         this.barGap = barGap;
         return this;
     }
@@ -25,5 +28,10 @@ public class BarBuilder extends ScattterBuilder {
 
     public BarPlot build() throws Exception {
         return new BarPlot(this);
+    }
+
+    @Override
+    protected String getType() {
+        return type;
     }
 }

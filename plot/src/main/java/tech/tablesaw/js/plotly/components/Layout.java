@@ -1,6 +1,18 @@
 package tech.tablesaw.js.plotly.components;
 
+import com.mitchellbosecke.pebble.PebbleEngine;
+import com.mitchellbosecke.pebble.error.PebbleException;
+import com.mitchellbosecke.pebble.template.PebbleTemplate;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Layout {
+
+    private final PebbleEngine engine = new PebbleEngine.Builder().build();
 
     /**
      * Determines the mode of hover interactions.
@@ -110,4 +122,49 @@ public class Layout {
     private int hoverDistance = 20; // greater than or equal to -1
 
 
+    public Layout(LayoutBuilder builder) {
+        this.title = builder.title;
+        this.autoSize = builder.autoSize;
+        this.decimalSeparator = builder.decimalSeparator;
+        this.thousandsSeparator = builder.thousandsSeparator;
+        this.dragMode = builder.dragMode;
+        this.font = builder.font;
+        this.hoverDistance = builder.hoverDistance;
+        this.hoverMode = builder.hoverMode;
+        this.margin = builder.margin;
+        this.height = builder.height;
+        this.width = builder.width;
+    }
+
+    public String asJavascript() {
+        Writer writer = new StringWriter();
+        PebbleTemplate compiledTemplate;
+
+        try {
+            compiledTemplate = engine.getTemplate("../plot/src/main/resources/layout_template.html");
+            compiledTemplate.evaluate(writer, getContext());
+        } catch (PebbleException | IOException e) {
+            e.printStackTrace();
+        }
+        return writer.toString();
+    }
+
+
+    protected Map<String, Object> getContext() {
+        Map<String, Object> context = new HashMap<>();
+        context.put("title", title);
+        context.put("width", width);
+        context.put("height", height);
+        context.put("font", font);
+        context.put("autosize", autoSize);
+        context.put("hoverdistance", hoverDistance);
+        context.put("hovermode", hoverMode);
+        context.put("margin", margin);
+        context.put("dragmode", dragMode);
+        return context;
+    }
+
+    public static LayoutBuilder builder() {
+        return new LayoutBuilder();
+    }
 }

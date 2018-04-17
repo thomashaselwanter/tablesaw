@@ -1,6 +1,6 @@
-package tech.tablesaw.js.plotly;
+package tech.tablesaw.js.plotly.traces;
 
-public class HistogramBuilder extends ScattterBuilder {
+public class HistogramBuilder extends ScatterBuilder {
 
     private int bins;
     private String barMode;
@@ -17,12 +17,12 @@ public class HistogramBuilder extends ScattterBuilder {
         return this;
     }
 
-    public ScattterBuilder histFunction(String histFunction) {
+    public ScatterBuilder histFunction(String histFunction) {
         this.histFunction = histFunction;
         return this;
     }
 
-    public ScattterBuilder histNorm(String histNorm) {
+    public ScatterBuilder histNorm(String histNorm) {
         this.histNorm = histNorm;
         return this;
     }
